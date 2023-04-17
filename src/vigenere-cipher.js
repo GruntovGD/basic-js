@@ -33,7 +33,7 @@ class VigenereCipheringMachine {
     str = str.toUpperCase().split('')
     let result = str.map((el, ind) => (row.includes(el)) ? el = row[row.indexOf(key[ind]) + row.indexOf(el)]:el)
     spaces.forEach((el) => result.splice(el, 0, ' '))
-    result = (this.reverse == true) ? result.reverse().join('') : result.join('')
+    result = (this.reverse == false) ? result.reverse().join('') : result.join('')
     return result
   }
   decrypt(str, key) {
@@ -45,7 +45,7 @@ class VigenereCipheringMachine {
     str = str.toUpperCase().split('')
     let result = str.map((el, ind) => (row.includes(el)) ? el = row[(-row.indexOf(key[ind]) + row.lastIndexOf(el))] : el)
     spaces.forEach((el) => result.splice(el, 0, ' '))
-    result = (this.reverse == true) ? result.reverse().join('') : result.join('')
+    result = (this.reverse == false) ? result.reverse().join('') : result.join('')
     return result
   }
 }
