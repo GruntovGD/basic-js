@@ -19,14 +19,34 @@ const { NotImplementedError } = require('../extensions/index.js');
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
  * 
  */
+let row = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(val){
+    this.reverse = val
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  encrypt(str, key) {
+    if (arguments.length < 2 || !arguments[0]) { throw new Error('Incorrect arguments!')}
+    let spaces = []
+    str.split('').forEach((el, ind) => (el == ' ') ? spaces.push(ind) : 0)
+    str = str.replace(/\s/g, '');
+    key = key.padEnd(str.length, key).toUpperCase();    
+    str = str.toUpperCase().split('')
+    let result = str.map((el, ind) => (row.includes(el)) ? el = row[row.indexOf(key[ind]) + row.indexOf(el)]:el)
+    spaces.forEach((el) => result.splice(el, 0, ' '))
+    result = (this.reverse == true) ? result.reverse().join('') : result.join('')
+    return result
+  }
+  decrypt(str, key) {
+    if (arguments.length < 2 || !arguments[0]) { throw new Error('Incorrect arguments!')}
+    let spaces = []
+    str.split('').forEach((el, ind) => (el == ' ') ? spaces.push(ind) : 0)
+    str = str.replace(/\s/g, '');
+    key = key.padEnd(str.length, key).toUpperCase();
+    str = str.toUpperCase().split('')
+    let result = str.map((el, ind) => (row.includes(el)) ? el = row[(-row.indexOf(key[ind]) + row.lastIndexOf(el))] : el)
+    spaces.forEach((el) => result.splice(el, 0, ' '))
+    result = (this.reverse == true) ? result.reverse().join('') : result.join('')
+    return result
   }
 }
 
