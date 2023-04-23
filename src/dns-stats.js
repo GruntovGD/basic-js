@@ -23,7 +23,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function getDNSStats(/* domains */) {
-  
+  adsasd
 }
 
 module.exports = {
